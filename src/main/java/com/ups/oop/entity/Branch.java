@@ -14,19 +14,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Person {
+
+ public class Branch {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String personId;
-    private String name;
-    private String lastname;
-    private Integer age;
 
-    public Person(String personId, String name, String lastname, Integer age){
-        this.personId = personId;
-        this.name = name;
-        this.lastname = lastname;
-        this.age = age; 
-    }
-}
+    private String branchName;
+    private String City;
+    private String branchAddress;
+ }
