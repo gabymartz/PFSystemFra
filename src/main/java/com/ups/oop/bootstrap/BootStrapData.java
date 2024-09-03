@@ -40,8 +40,8 @@ import java.sql.Date;
         Client c1 = new Client();
         c1.setClientCode("C-0001");
         c1.setPersonId("0936453679");
-        c1.setName("Juan");
-        c1.setLastname("Pérez");
+        c1.setName("Diana");
+        c1.setLastname("Mendoza");
         c1.setAge(30);
         clientRepository.save(c1);
 
@@ -49,8 +49,8 @@ import java.sql.Date;
         Client c2 = new Client();
         c2.setClientCode("C-0002");
         c2.setPersonId("0936453678");
-        c2.setName("María");
-        c2.setLastname("Gómez");
+        c2.setName("Yomaira");
+        c2.setLastname("Villamar");
         c2.setAge(25);
         clientRepository.save(c2);
 
@@ -59,7 +59,7 @@ import java.sql.Date;
         c3.setClientCode("C-0003");
         c3.setPersonId("0936453680");
         c3.setName("Carlos");
-        c3.setLastname("Ramírez");
+        c3.setLastname("Gonzalez");
         c3.setAge(40);
         clientRepository.save(c3);
 
@@ -142,13 +142,13 @@ import java.sql.Date;
 
         //SUPPLIERS
         Supplier supplier1 = new Supplier();
-        supplier1.setName("Supplier A");
+        supplier1.setName("CORPORACION ROSADO S.A");
         supplier1.setContactInfo("contact@supplierA.com");
         supplier1.setPhoneNumber("123-456-7890");
         supplierRepository.save(supplier1);
 
         Supplier supplier2 = new Supplier();
-        supplier2.setName("Supplier B");
+        supplier2.setName("DEPRATI");
         supplier2.setContactInfo("contact@supplierB.com");
         supplier2.setPhoneNumber("987-654-3210");
         supplierRepository.save(supplier2);
@@ -157,7 +157,7 @@ import java.sql.Date;
 
         Product product1 = new Product();
         product1.setProductId("P001");
-        product1.setName("Product 1");
+        product1.setName("Zapatos Nike");
         product1.setPrice(100.0);
         product1.setInterestRate(5.0);
         product1.setSupplier(supplier1);
@@ -165,7 +165,7 @@ import java.sql.Date;
 
         Product product2 = new Product();
         product2.setProductId("P002");
-        product2.setName("Product 2");
+        product2.setName("Vestido Ejecutivo");
         product2.setPrice(150.0);
         product2.setInterestRate(10.0);
         product2.setSupplier(supplier2);
@@ -173,15 +173,15 @@ import java.sql.Date;
 
         Product product3 = new Product();
         product3.setProductId("P003");
-        product3.setName("Product 3");
+        product3.setName("Set de Aseo Personal Completo");
         product3.setPrice(20);
-        product3.setInterestRate(7.5);
+        product3.setInterestRate(5.0);
         product3.setSupplier(supplier1);
         productRepository.save(product3);
 
         Product product4 = new Product();
         product4.setProductId("P004");
-        product4.setName("Product 4");
+        product4.setName("Zapatos Formal");
         product4.setPrice(25);
         product4.setInterestRate(12.0);
         product4.setSupplier(supplier2);
@@ -205,6 +205,25 @@ import java.sql.Date;
         invo1.setTotalPrice(105);
         invoiceRepository.save(invo1);
 
+
+        Invoice invo2 = new Invoice();
+        invo2.setSerial("INV-002");
+        invo2.setDate(new Date(System.currentTimeMillis()));
+        invo2.setClient(c2);
+        invo2.setProduct(product2);
+        invo2.setPaymentMeth(pay2);
+        invo2.setTotalPrice(165);
+        invoiceRepository.save(invo2);
+
+        Invoice invo3 = new Invoice();
+        invo3.setSerial("INV-003");
+        invo3.setDate(new Date(System.currentTimeMillis()));
+        invo3.setClient(c3);
+        invo3.setProduct(product3);
+        invo3.setPaymentMeth(pay1);
+        invo3.setTotalPrice(21);
+        invoiceRepository.save(invo3);
+
         //INVOICE DETAILS
         InvoiceDetail detail1 = new InvoiceDetail();
         detail1.setInvoice(invo1);
@@ -219,6 +238,41 @@ import java.sql.Date;
         detail1.setPaymentMeth(pay1);
         detail1.setTotal(105);
         invoiceDetailRepository.save(detail1);
+
+        InvoiceDetail detail2 = new InvoiceDetail();
+        detail2.setInvoice(invo2);
+        detail2.setBranch(branch2);
+        detail2.setStore(store2);
+        detail2.setEmployee(e2);
+        detail2.setClient(c1);
+        detail2.setProduct(product2);
+        detail2.setSupplier(supplier2);
+        detail2.setInterestRate(10.0);
+        detail2.setQuantity(1);
+        detail2.setPaymentMeth(pay2);
+        detail2.setTotal(165);
+        invoiceDetailRepository.save(detail2);
+
+        InvoiceDetail detail3 = new InvoiceDetail();
+        detail3.setInvoice(invo3);
+        detail3.setBranch(branch3);
+        detail3.setStore(store3);
+        detail3.setEmployee(e3);
+        detail3.setClient(c3);
+        detail3.setProduct(product3);
+        detail3.setSupplier(supplier1);
+        detail3.setInterestRate(5.0);
+        detail3.setQuantity(1);
+        detail3.setPaymentMeth(pay1);
+        detail3.setTotal(21);
+        invoiceDetailRepository.save(detail3);
+
+        Person person1 = new Person();
+        person1.setPersonId("0955889191");
+        person1.setName("Daniel");
+        person1.setLastname("Diaz");
+        person1.setAge(21);
+        personRepository.save(person1);
 
         System.out.println("--------- Started BootstrapData -------------");
         System.out.println("Number of Clients: " + clientRepository.count());

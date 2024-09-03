@@ -8,7 +8,8 @@ public class InvoiceDTO {
    private String serial;
    private String client;
    private Date date;
-   private String product;
+   private String productName;
+   private String quantity;
    private Double totalPrice;
    private String paymentMethod;
 
@@ -43,12 +44,20 @@ public class InvoiceDTO {
    public Double getTotalPrice() {
       return totalPrice;
    }
-   public String getProduct() {
-       return product;
+   public String getProductName() {
+       return productName;
    }
 
-   public void setProduct(String product) {
-         this.product = product;
+   public void setProductName(String productName) {
+         this.productName = productName;
+   }
+
+   public String getQuantity() {
+      return quantity;
+   }
+
+   public void setQuantity(String quantity) {
+      this.quantity = quantity;
    }
 
    public void setTotalPrice(Double totalPrice) {
@@ -68,8 +77,9 @@ public class InvoiceDTO {
               ", serial='" + serial + '\'' +
               ", client='" + client + '\'' +
               ", date=" + date +
-              ", product=" + product +
+              ", product=" + productName +
               ", totalPrice=" + totalPrice +
+              ", quantity=" + quantity +
               ", paymentMethod='" + paymentMethod + '\'' +
               '}';
    }

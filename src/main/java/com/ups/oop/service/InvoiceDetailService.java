@@ -33,6 +33,8 @@ public class InvoiceDetailService {
             detailDTO.setInterestRate(detail.getInterestRate());
             detailDTO.setSupplier(detail.getSupplier().getName());
             detailDTO.setPaymentMethod(detail.getPaymentMeth().getMethod());
+            detailDTO.setEmployee(detail.getEmployee().getName() + " " + detail.getEmployee().getLastname()); // Asegúrate de que el nombre del empleado se extrae correctamente
+
 
             detailList.add(detailDTO);
         }

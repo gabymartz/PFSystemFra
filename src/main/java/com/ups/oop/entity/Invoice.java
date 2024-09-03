@@ -24,7 +24,7 @@ import java.util.List;
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    private Date Date;
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name= "product_id", nullable = false)
