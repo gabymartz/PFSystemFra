@@ -6,37 +6,35 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
  public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String productName;
-    private double unitPrice;
-    private boolean hasTax;
-    private double taxRate;
-    private String suppliersS;
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "supplier_id", nullable = true)
-    private Supplier supplier;
+   private String productId;
+   private String name;
+   private double price;
 
-    @ManyToMany
-    @JoinTable(
-            name= "product_supplier",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "supplier_id")
-    )
-    private List<Supplier> suppliers = new ArrayList<>();
+   private double interestRate;
 
-    public double getPriceWithTax(){
-       return hasTax ? unitPrice * (1 + taxRate) : unitPrice;
-    }
+   @ManyToOne
+   @JoinColumn(name = "supplier_id", nullable = true)
+   private Supplier supplier;
+
+  @Override
+  public String toString() {
+    return "Product{" +
+            "id=" + id +
+            ", productId='" + productId + '\'' +
+            ", name='" + name + '\'' +
+            ", price=" + price +
+            ", interestRate=" + interestRate +
+            ", supplierName=" + (supplier != null ? supplier.getName() : "No Supplier") +
+            '}';
+  }
 }

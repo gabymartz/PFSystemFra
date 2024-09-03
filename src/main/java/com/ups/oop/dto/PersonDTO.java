@@ -11,9 +11,8 @@ import lombok.Setter;
 @Setter
  public class PersonDTO {
     private String id;
-    private String personId;
     private String name;
     private String lastname;
-    private Integer age;
+    private int age;
 }
 

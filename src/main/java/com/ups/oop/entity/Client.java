@@ -8,14 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Client extends Person {
-    private String ClientCode;
+    private String clientCode;
 
 
     public Client(){
         super();
     }
-    public Client (String ClientCode, String personId, String name, String lastname, Integer age){
+    public Client (String clientCode, String personId, String name, String lastname, Integer age){
         super(personId, name, lastname, age);
-        this.ClientCode = ClientCode;
+        this.clientCode = clientCode;
     }
 }

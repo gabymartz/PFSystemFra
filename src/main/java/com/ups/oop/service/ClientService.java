@@ -1,3 +1,4 @@
+
 package com.ups.oop.service;
 
 import com.ups.oop.dto.ClientDTO;
@@ -31,6 +32,7 @@ public class ClientService {
             if (clientDTO.getName().contains(" ")) {
                 Client clientRecord = new Client();
                 clientRecord.setPersonId(clientDTO.getId());
+
                 String[] nameStrings = clientDTO.getName().split(" ");
                 String name = nameStrings[0];
                 String lastname = nameStrings[1];

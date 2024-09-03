@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.ssl.PemSslBundleProperties;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -16,34 +14,22 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-
  public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    private String serial;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    private Date invoiceDate;
 
     @ManyToOne
-    @JoinColumn(name = "store_id")
-    private PemSslBundleProperties.Store store;
-
-    private String date;
+    @JoinColumn(name = "payment_id", nullable = false)
+    private PaymentMeth paymentMeth;
 
     @OneToMany(mappedBy = "invoice")
-    private List<InvoiceDetail> invoiceDetails = new ArrayList<>();
-
-    public double calculateTotalWithTax(){
-        return invoiceDetails.stream()
-                .mapToDouble(InvoiceDetail:: getTotalWithTax)
-                .sum();
-    }
-
+    private List<InvoiceDetail> invoiceDetails;
 }

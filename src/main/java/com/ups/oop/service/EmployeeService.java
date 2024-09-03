@@ -21,102 +21,67 @@ public class EmployeeService {
     }
 
     public ResponseEntity createEmployee(EmployeeDTO employeeDTO) {
-        String employeeId = employeeDTO.getId();
-        Optional<Employee> employeeOptional = employeeRepository.findByPersonId(employeeId);
-
-        if (employeeOptional.isPresent()) {
-            String errorMessage = "Employee with id " + employeeId + " already exists";
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
-        } else {
-            if (employeeDTO.getName().contains(" ")) {
-                Employee employeeRecord = new Employee();
-                employeeRecord.setPersonId(employeeDTO.getId());
-                String[] nameStrings = employeeDTO.getName().split(" ");
-                String name = nameStrings[0];
-                String lastname = nameStrings[1];
-                employeeRecord.setName(name);
-                employeeRecord.setLastname(lastname);
-                employeeRecord.setAge(employeeDTO.getAge());
-                employeeRecord.setEmployeeCode(employeeDTO.getEmployeeCode());
-                employeeRepository.save(employeeRecord);
-                return ResponseEntity.status(HttpStatus.OK).body(employeeDTO);
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Employee name must contain two strings separated by a whitespace");
-            }
-        }
+        Employee employee = new Employee();
+        employee.setEmployeeCode(employeeDTO.getEmployeeCode());
+        employee.setPersonId(employeeDTO.getId().toString());
+        employee.setName(employeeDTO.getName());
+        employee.setLastname("");
+        employee.setAge(employeeDTO.getAge());
+        employeeRepository.save(employee);
+        return ResponseEntity.status(HttpStatus.CREATED).body(employeeDTO);
     }
 
     public ResponseEntity getAllEmployees() {
-        Iterable<Employee> employeeIterable = employeeRepository.findAll();
-        List<EmployeeDTO> employeeList = new ArrayList<>();
-
-        for (Employee e : employeeIterable) {
-            EmployeeDTO employeeDTO = new EmployeeDTO(
-                    e.getPersonId(),
-                    e.getName() + " " + e.getLastname(),
-                    e.getAge(),
-                    e.getEmployeeCode()
-            );
-            employeeList.add(employeeDTO);
+        Iterable<Employee> employees = employeeRepository.findAll();
+        List<EmployeeDTO> employeeDTOList = new ArrayList<>();
+        for (Employee employee : employees) {
+            EmployeeDTO dto = new EmployeeDTO(employee.getId(), employee.getName(), employee.getAge(), employee.getEmployeeCode());
+            employeeDTOList.add(dto);
         }
-
-        if (employeeList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee list is empty");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(employeeList);
+        return ResponseEntity.status(HttpStatus.OK).body(employeeDTOList);
     }
 
-    public ResponseEntity getEmployeeById(String employeeId) {
-        Optional<Employee> employeeOptional = employeeRepository.findByPersonId(employeeId);
-        if (employeeOptional.isPresent()) {
-            Employee employee = employeeOptional.get();
-            EmployeeDTO employeeDTO = new EmployeeDTO(
-                    employee.getPersonId(),
-                    employee.getName() + " " + employee.getLastname(),
-                    employee.getAge(),
-                    employee.getEmployeeCode()
-            );
+    public ResponseEntity getEmployeeById(Long id) {
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if (employee.isPresent()) {
+            EmployeeDTO dto = new EmployeeDTO(employee.get().getId(), employee.get().getName(), employee.get().getAge(), employee.get().getEmployeeCode());
+            return ResponseEntity.status(HttpStatus.OK).body(dto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
+        }
+    }
+
+    public ResponseEntity getEmployeeByPersonId(String personId) {
+        Optional<Employee> employee = employeeRepository.findByPersonId(personId);
+        if (employee.isPresent()) {
+            EmployeeDTO dto = new EmployeeDTO(employee.get().getId(), employee.get().getName(), employee.get().getAge(), employee.get().getEmployeeCode());
+            return ResponseEntity.status(HttpStatus.OK).body(dto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
+        }
+    }
+
+    public ResponseEntity updateEmployee(Long id, EmployeeDTO employeeDTO) {
+        Optional<Employee> existingEmployee = employeeRepository.findById(id);
+        if (existingEmployee.isPresent()) {
+            Employee employee = existingEmployee.get();
+            employee.setEmployeeCode(employeeDTO.getEmployeeCode());
+            employee.setName(employeeDTO.getName());
+            employee.setAge(employeeDTO.getAge());
+            employeeRepository.save(employee);
             return ResponseEntity.status(HttpStatus.OK).body(employeeDTO);
         } else {
-            String errorMessage = "Employee with id " + employeeId + " does not exist";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
         }
     }
 
-    public ResponseEntity updateEmployee(EmployeeDTO employeeDTO) {
-        String employeeId = employeeDTO.getId();
-        Optional<Employee> employeeOptional = employeeRepository.findByPersonId(employeeId);
-
-        if (employeeOptional.isPresent()) {
-            Employee employee = employeeOptional.get();
-
-            if (employeeDTO.getName().contains(" ")) {
-                employee.setPersonId(employeeId);
-                String[] nameStrings = employeeDTO.getName().split(" ");
-                String name = nameStrings[0];
-                String lastname = nameStrings[1];
-                employee.setName(name);
-                employee.setLastname(lastname);
-                employee.setAge(employeeDTO.getAge());
-                employee.setEmployeeCode(employeeDTO.getEmployeeCode());
-                employeeRepository.save(employee);
-                return ResponseEntity.status(HttpStatus.OK).body(employeeDTO);
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Employee name must contain two strings separated by a whitespace");
-            }
+    public ResponseEntity deleteEmployee(Long id) {
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if (employee.isPresent()) {
+            employeeRepository.delete(employee.get());
+            return ResponseEntity.status(HttpStatus.OK).body("Employee deleted successfully");
         } else {
-            String errorMessage = "Employee with id " + employeeId + " not found";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
-        }
-    }
-
-    public ResponseEntity deleteEmployeeById(String employeeId) {
-        Optional<Employee> employeeOptional = employeeRepository.findByPersonId(employeeId);
-        if (employeeOptional.isPresent()) {
-            employeeRepository.delete(employeeOptional.get());
-            return ResponseEntity.status(HttpStatus.OK).body("Employee with id " + employeeId + " removed successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee with id " + employeeId + " not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
         }
     }
 }
