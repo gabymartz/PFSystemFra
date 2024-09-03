@@ -18,4 +18,5 @@ public class Client extends Person {
         super(personId, name, lastname, age);
         this.clientCode = clientCode;
     }
+
 }

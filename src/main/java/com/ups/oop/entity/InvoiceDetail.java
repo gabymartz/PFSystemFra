@@ -35,6 +35,10 @@ import java.util.List;
    private Store store;
 
    @ManyToOne
+   @JoinColumn(name = "employee_id", nullable = false)
+   private Employee employee;
+
+   @ManyToOne
    @JoinColumn(name = "product_id", nullable = false)
    private Product product;
 

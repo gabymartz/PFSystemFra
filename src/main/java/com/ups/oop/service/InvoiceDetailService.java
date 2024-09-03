@@ -23,7 +23,7 @@ public class InvoiceDetailService {
         for (InvoiceDetail detail : detailIterable) {
             InvoiceDetailDTO detailDTO = new InvoiceDetailDTO();
             detailDTO.setSerial(detail.getInvoice().getSerial());
-            detailDTO.setCustomer(detail.getClient().getName() + " " + detail.getClient().getLastname());
+            detailDTO.setClient(detail.getClient().getName() + " " + detail.getClient().getLastname());
             detailDTO.setBranch(detail.getBranch().getBranchName());
             detailDTO.setStore(detail.getStore().getStoreName());
             detailDTO.setProductName(detail.getProduct().getName());

@@ -24,7 +24,11 @@ import java.util.List;
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    private Date invoiceDate;
+    private Date Date;
+
+    @ManyToOne
+    @JoinColumn(name= "product_id", nullable = false)
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "payment_id", nullable = false)
@@ -32,4 +36,6 @@ import java.util.List;
 
     @OneToMany(mappedBy = "invoice")
     private List<InvoiceDetail> invoiceDetails;
+
+    private int totalPrice;
 }

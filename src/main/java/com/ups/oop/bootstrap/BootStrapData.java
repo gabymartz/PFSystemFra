@@ -34,7 +34,8 @@ import java.sql.Date;
         this.invoiceDetailRepository = invoiceDetailRepository;
     }
 
-    public void createClients() {
+    @Override
+    public void run(String... args) throws Exception {
         //CLIENT 1
         Client c1 = new Client();
         c1.setClientCode("C-0001");
@@ -61,8 +62,7 @@ import java.sql.Date;
         c3.setLastname("Ramírez");
         c3.setAge(40);
         clientRepository.save(c3);
-    }
-    public void createEmployees() {
+
 
         // EMPLOYEE 1
         Employee e1 = new Employee();
@@ -91,9 +91,8 @@ import java.sql.Date;
         employeeRepository.save(e1);
         employeeRepository.save(e2);
         employeeRepository.save(e3);
-    }
 
-    private void createStoresAndBranches() {
+
         // STORE 1
         Store store1 = new Store();
         store1.setStoreName("MegaStore");
@@ -139,8 +138,7 @@ import java.sql.Date;
         branchRepository.save(branch1);
         branchRepository.save(branch2);
         branchRepository.save(branch3);
-    }
-    private void createProductsAndSuppliers(){
+
 
         //SUPPLIERS
         Supplier supplier1 = new Supplier();
@@ -176,7 +174,7 @@ import java.sql.Date;
         Product product3 = new Product();
         product3.setProductId("P003");
         product3.setName("Product 3");
-        product3.setPrice(200.0);
+        product3.setPrice(20);
         product3.setInterestRate(7.5);
         product3.setSupplier(supplier1);
         productRepository.save(product3);
@@ -184,12 +182,11 @@ import java.sql.Date;
         Product product4 = new Product();
         product4.setProductId("P004");
         product4.setName("Product 4");
-        product4.setPrice(250.0);
+        product4.setPrice(25);
         product4.setInterestRate(12.0);
         product4.setSupplier(supplier2);
         productRepository.save(product4);
-    }
-    private void createPaymentMeth(){
+
         PaymentMeth pay1 = new PaymentMeth();
         pay1.setMethod("Money");
         paymentMethRepository.save(pay1);
@@ -198,16 +195,30 @@ import java.sql.Date;
         pay2.setMethod("Debit Card");
         paymentMethRepository.save(pay2);
 
-    }
+        //INVOICE
+        Invoice invo1 = new Invoice();
+        invo1.setSerial("INV-001");
+        invo1.setDate(new Date(System.currentTimeMillis()));
+        invo1.setClient(c1);
+        invo1.setProduct(product1);
+        invo1.setPaymentMeth(pay1);
+        invo1.setTotalPrice(105);
+        invoiceRepository.save(invo1);
 
-    @Override
-    public void run(String... args) throws Exception {
-        createClients();
-        createEmployees();
-        createStoresAndBranches();
-        createProductsAndSuppliers();
-        createPaymentMeth();
-
+        //INVOICE DETAILS
+        InvoiceDetail detail1 = new InvoiceDetail();
+        detail1.setInvoice(invo1);
+        detail1.setBranch(branch1);
+        detail1.setStore(store1);
+        detail1.setEmployee(e1);
+        detail1.setClient(c2);
+        detail1.setProduct(product1);
+        detail1.setSupplier(supplier1);
+        detail1.setInterestRate(5.0);
+        detail1.setQuantity(1);
+        detail1.setPaymentMeth(pay1);
+        detail1.setTotal(105);
+        invoiceDetailRepository.save(detail1);
 
         System.out.println("--------- Started BootstrapData -------------");
         System.out.println("Number of Clients: " + clientRepository.count());
@@ -218,7 +229,10 @@ import java.sql.Date;
         System.out.println("Number of Products:" + productRepository.count());
         System.out.println("Number of Suppliers: " + supplierRepository.count());
         System.out.println("Number of PaymentMeth: " + paymentMethRepository.count());
+        System.out.println("Number of Invoices: " + invoiceRepository.count());
+        System.out.println("Number of Invoice Details: " + invoiceDetailRepository.count());
 
 
     }
+
 }
