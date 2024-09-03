@@ -1,12 +1,14 @@
 package com.ups.oop.dto;
 
 import java.time.LocalDate;
+import java.util.Date;
 
- public class InvoiceDTO {
+public class InvoiceDTO {
    private String id;
    private String serial;
-   private String customer;
-   private LocalDate date;
+   private String client;
+   private Date date;
+   private String product;
    private Double totalPrice;
    private String paymentMethod;
 
@@ -24,21 +26,31 @@ import java.time.LocalDate;
    public void setSerial(String serial) {
       this.serial = serial;
    }
-   public String getCustomer() {
-      return customer;
+   public String getClient() {
+      return client;
    }
-   public void setCustomer(String customer) {
-      this.customer = customer;
+   public void setClient(String client) {
+      this.client = client;
    }
-   public LocalDate getDate() {
-      return date;
+
+   public Date getDate() {
+       return date;
    }
-   public void setDate(LocalDate date) {
-      this.date = date;
+
+   public void setDate(Date date) {
+       this.date = date;
    }
    public Double getTotalPrice() {
       return totalPrice;
    }
+   public String getProduct() {
+       return product;
+   }
+
+   public void setProduct(String product) {
+         this.product = product;
+   }
+
    public void setTotalPrice(Double totalPrice) {
       this.totalPrice = totalPrice;
    }
@@ -54,8 +66,9 @@ import java.time.LocalDate;
       return "InvoiceDTO{" +
               "id='" + id + '\'' +
               ", serial='" + serial + '\'' +
-              ", customer='" + customer + '\'' +
+              ", client='" + client + '\'' +
               ", date=" + date +
+              ", product=" + product +
               ", totalPrice=" + totalPrice +
               ", paymentMethod='" + paymentMethod + '\'' +
               '}';

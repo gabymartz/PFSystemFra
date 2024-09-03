@@ -38,6 +38,7 @@ public class TemplateController {
     public String getTemplate(Model model){
         return "template";
     }
+
     @GetMapping("/people")
     public String getPeople(Model model){
         model.addAttribute("people",  personService.getAllPeople());

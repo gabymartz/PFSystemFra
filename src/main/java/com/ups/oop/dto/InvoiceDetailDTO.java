@@ -2,9 +2,10 @@ package com.ups.oop.dto;
 
  public class InvoiceDetailDTO {
    private String serial;
-   private String customer;
+   private String client;
    private String branch;
    private String store;
+   private String employee;
    private String productName;
    private Double productPrice;
    private Integer quantity;
@@ -20,11 +21,11 @@ package com.ups.oop.dto;
    public void setSerial(String serial) {
       this.serial = serial;
    }
-   public String getCustomer() {
-      return customer;
+   public String getClient() {
+      return client;
    }
-   public void setCustomer(String customer) {
-      this.customer = customer;
+   public void setClient(String client) {
+      this.client = client;
    }
    public String getBranch() {
       return branch;
@@ -34,6 +35,12 @@ package com.ups.oop.dto;
    }
    public String getStore() {
       return store;
+   }
+   public void setEmployee(String employee){
+       this.employee = employee;
+   }
+   public String getEmployee(){
+       return employee;
    }
    public void setStore(String store) {
       this.store = store;
@@ -85,9 +92,10 @@ package com.ups.oop.dto;
    public String toString() {
       return "InvoiceDetailDTO{" +
               "serial='" + serial + '\'' +
-              ", customer='" + customer + '\'' +
+              ", client='" + client + '\'' +
               ", branch='" + branch + '\'' +
               ", store='" + store + '\'' +
+              ", employee='" + employee + '\'' +
               ", productName='" + productName + '\'' +
               ", productPrice=" + productPrice +
               ", quantity=" + quantity +

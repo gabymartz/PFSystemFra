@@ -25,8 +25,8 @@ public class InvoiceService {
             InvoiceDTO invoiceDTO = new InvoiceDTO();
             invoiceDTO.setId(invoice.getId().toString());
             invoiceDTO.setSerial(invoice.getSerial());
-            invoiceDTO.setCustomer(invoice.getClient().getName() + " " + invoice.getClient().getLastname());
-            invoiceDTO.setDate(invoice.getInvoiceDate().toLocalDate());
+            invoiceDTO.setClient(invoice.getClient().getName() + " " + invoice.getClient().getLastname());
+            invoiceDTO.setDate(invoice.getDate());
             invoiceDTO.setTotalPrice(invoice.getInvoiceDetails().stream().mapToDouble(InvoiceDetail::getTotal).sum());
             invoiceDTO.setPaymentMethod(invoice.getPaymentMeth().getMethod());
 
