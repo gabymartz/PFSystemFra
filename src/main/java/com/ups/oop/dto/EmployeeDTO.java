@@ -4,13 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Getter
 @Setter
  public class EmployeeDTO {
-    private String id;
+    private Long id;
     private String name;
     private Integer age;
     private String employeeCode;

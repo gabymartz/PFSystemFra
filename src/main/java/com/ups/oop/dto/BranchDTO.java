@@ -12,5 +12,7 @@ import lombok.Setter;
  public class BranchDTO {
     private Long id;
     private String branchName;
+    private String city;
     private String branchAddress;
+    private Long storeId;
 }

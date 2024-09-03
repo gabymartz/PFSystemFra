@@ -1,14 +1,10 @@
 package com.ups.oop.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +15,13 @@ import java.util.List;
 @Getter
 @Setter
  public class Supplier {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name;
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   private Long id;
+   private String name;
+   private String contactInfo;
+   private String phoneNumber;
 
-    @ManyToMany(mappedBy = "suppliers")
-    private List<Product> products = new ArrayList<>();
+   @OneToMany(mappedBy = "supplier")
+   private List<Product> products = new ArrayList<>();
 }
