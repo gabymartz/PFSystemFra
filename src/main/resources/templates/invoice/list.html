@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoices</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+        }
+        td {
+            font-size: 14px;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Invoice List</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Serial</th>
+            <th>Client</th>
+            <th>Date</th>
+            <th>Product Name</th>
+            <th>Total Price</th>
+            <th>Payment Method</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="invoice : ${invoices}">
+            <td th:text="${invoice.id}">ID</td>
+            <td th:text="${invoice.serial}">Serial</td>
+            <td th:text="${invoice.client}">Client</td>
+            <td th:text="${invoice.date}">Date</td>
+            <td th:text="${invoice.productName}">Product Name</td>
+            <td th:text="${invoice.totalPrice}">Total Price</td>
+            <td th:text="${invoice.paymentMethod}">Payment Method</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
